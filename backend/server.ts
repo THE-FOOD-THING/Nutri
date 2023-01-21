@@ -43,6 +43,10 @@ app.get('/', (req: Request, res: Response) => {
   return res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
+// this route handles all requests that are not handled by any other route handler and we will redirect the user to the default index.html
+app.all('*', (req, res) => {
+  res.status(404).sendFile(path.join(__dirname, '../index.html'));
+})
 //Error Handling
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   const defaultErr = {
@@ -61,7 +65,6 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
-
 // app.get('/api/leaders', async (req, res) => {
 //   res.status(200).json('hello');
 // });
