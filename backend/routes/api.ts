@@ -4,40 +4,36 @@ import userController from '../middleware/userController';
 import cookieController from '../middleware/cookieController';
 import inputController from '../middleware/inputController';
 import authController from '../middleware/authController';
+import ingredientController from '../middleware/ingredientController';
 
 const router = Router();
 
 router.post('/signup', userController.createUser, (req, res) => {
   console.log('made a user');
-  return res.status(200).json(res.locals.newUser);
+  return res.status(200).json(res.locals.user);
 });
 
-
-router.post('/login', userController.verifyUser, cookieController.setSSIDCookie, (req, res) => {
+router.post(
+  '/login',
+  userController.verifyUser,
+  cookieController.setSSIDCookie,
+  (req, res) => {
     console.log('found a user');
     return res.status(200).json(res.locals.foundUser);
   }
 );
 
-router.get(
-  '/getIngredients',
-  inputController.getIngredients,
-  (req, res) => {
-    return res.status(200).json(res.locals.without);
-  }
-);
+router.get('/getIngredients', inputController.getIngredients, (req, res) => {
+  return res.status(200).json(res.locals.without);
+});
 
-router.get(
-  '/getHealthLabels',
-  inputController.getHealthLabels,
-  (req, res) => {
-    return res.status(200).json(res.locals.healthLabels);
-  }
-);
+router.get('/getHealthLabels', inputController.getHealthLabels, (req, res) => {
+  return res.status(200).json(res.locals.healthLabels);
+});
 
-router.get('/getRecipes', inputController.default.getSearchResults, (req, res) => {
+router.get('/getRecipes', inputController.getSearchResults, (req, res) => {
   return res.status(200).json(res.locals.recipeData);
-})
+});
 
 router.post('/allergies', (req, res) => {
   res.status(200).json();
@@ -47,25 +43,42 @@ router.post('/allergies', (req, res) => {
  * favorites endpoint routes
  */
 
-router.get('/favorites', authController.verifyJWT, inventoryController.getFavorites, (req, res) => {
-  //return favorites array on the found user
-  res.status(200).json(res.locals.favorites);
-});
+router.get(
+  '/favorites', authController.verifyJWT,inventoryController.getFavorites, (req, res) => {
+    //return favorites array on the found user
+    res.status(200).json(res.locals.favorites);
+  }
+);
 
 router.post('/favorites', authController.verifyJWT, inventoryController.addNewFavorite, (req, res) => {
-  //return favorites array on the found user
-  res.status(200).json(res.locals.favorites);
-});
+    //return favorites array on the found user
+    res.status(200).json(res.locals.favorites);
+  }
+);
 
-router.patch('/favorites', authController.verifyJWT,inventoryController.updateFavorite, (req, res) => {
-  //return favorites array on the found user
-  res.status(200).json(res.locals.favorites);
-});
+router.patch('/favorites', authController.verifyJWT, inventoryController.updateFavorite, (req, res) => {
+    //return favorites array on the found user
+    res.status(200).json(res.locals.favorites);
+  }
+);
 
-router.delete('/favorites', authController.verifyJWT,inventoryController.removeFavorite, (req, res) => {
-  //return favorites array on the found user
-  res.status(200).json(res.locals.favorites);
-});
+router.delete('/favorites', authController.verifyJWT, inventoryController.removeFavorite, (req, res) => {
+    //return favorites array on the found user
+    res.status(200).json(res.locals.favorites);
+  }
+);
+
+router.get('/ingredients', authController.verifyJWT, ingredientController.getIngredients, (req, res) => {
+    //return favorites array on the found user
+    res.status(200).json(res.locals.fridgeInventory);
+  }
+);
+
+router.patch('/ingredients', authController.verifyJWT, ingredientController.updateIngredients, (req, res) => {
+    //return favorites array on the found user
+    res.status(200).json(res.locals.newFridgeInventory);
+  }
+);
 
 router.post('/logout', (req, res) => {
   res.clearCookie('ssid');

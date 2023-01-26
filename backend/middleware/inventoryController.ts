@@ -23,7 +23,7 @@ inventoryController.getFavorites = async (
 
     //add new ingredients to favorites array
 
-    res.locals.favorites = user.favorites;
+    res.locals.favorites = user.data.favorites;
 
     return next();
   } catch (err) {
@@ -63,9 +63,9 @@ inventoryController.addNewFavorite = async (
     }
 
     //add new ingredients to favorites array
-    user.favorites = [...user.favorites, ...newIngredients];
+    user.data.favorites = [...user.data.favorites, ...newIngredients];
 
-    res.locals.favorites = user.favorites;
+    res.locals.favorites = user.data.favorites;
 
     return next();
   } catch (err) {
@@ -112,7 +112,7 @@ inventoryController.updateFavorite = async (
     }
 
     //update the favorite item by looping through the favorites array, finding the ingredient to update and then replacing it
-    user.favorites.forEach(
+    user.data.favorites.forEach(
       (ingredient: string, i: number, array: Array<string>) => {
         if (ingredient === update) {
           array[i] = to;
@@ -120,7 +120,7 @@ inventoryController.updateFavorite = async (
       }
     );
 
-    res.locals.favorites = user.favorites;
+    res.locals.favorites = user.data.favorites;
 
     return next();
   } catch (err) {
@@ -160,11 +160,11 @@ inventoryController.removeFavorite = async (
     }
 
     //create a new array with all of the ingredients except the one expected to be removed.
-    user.favorites = res.locals.foundUser.favorites.filter(
+    user.data.favorites = user.data.favorites.filter(
       (ingredient: string) => ingredient !== remove
     );
 
-    res.locals.favorites = user.favorites;
+    res.locals.favorites = user.data.favorites;
     return next();
   } catch (err) {
     console.log('error occured in inventoryController addNewFavorite', err);

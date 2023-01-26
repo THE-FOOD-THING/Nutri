@@ -9,7 +9,12 @@ authController.verifyJWT = async (
   next: NextFunction
 ) => {
   try {
+
+    console.log('made it to verfiyJWT');
+    // console.log(req);
+    // console.log(req.cookies.ssid);
     let token = req.cookies.ssid;
+    console.log('this token', token);
     if (!token) {
       return res
         .status(403)

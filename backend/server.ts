@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import env from 'dotenv';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 const routes = require('./routes/api');
 // import * as routes from './routes/api';
@@ -12,12 +13,12 @@ env.config();
 const app = express();
 const PORT = 3000;
 
-
 //TODO: finish off userController
 //TODO: figure out sessions
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 
 mongoose.set('strictQuery', true);
 
