@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import Inventory from './routes/Inventory';
 import ErrorPage from './routes/ErrorPage';
+import HomePage from './routes/HomePage';
 
 
 function App() {
@@ -30,6 +31,10 @@ function App() {
         },
         {
           path: "/home",
+          element: <HomePage />,
+        },
+        {
+          path: "/allergies",
           element: <UserInterface />,
         },
         {
