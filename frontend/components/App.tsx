@@ -18,7 +18,8 @@ import {
 } from 'react-router-dom';
 import Inventory from './routes/Inventory';
 import ErrorPage from './routes/ErrorPage';
-import Favorites from './Favorites';
+import Favorites from './Favorites';import HomePage from './routes/HomePage';
+
 
 function App() {
   //setting up React Router
@@ -34,6 +35,10 @@ function App() {
         },
         {
           path: '/home',
+          element: <HomePage />,
+        },
+        {
+          path: "/allergies",
           element: <UserInterface />,
         },
         {

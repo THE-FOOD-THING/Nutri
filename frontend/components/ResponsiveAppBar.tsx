@@ -33,7 +33,7 @@ type Setting = {
 };
 
 const pages: Page[] = [
-  { pageName: 'Add Allergies', href: '/' },
+  { pageName: 'Add Allergies', href: '/allergies' },
   { pageName: 'Search Recipes', href: '/recipes' },
   { pageName: 'Favorites', href: '/favorites' },
 ];

@@ -4,7 +4,7 @@ const process = require('process');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: process.env.TARGET ?? 'production',
+  mode: process.env.TARGET,
   entry: './frontend/index.tsx',
   module: {
     rules: [
